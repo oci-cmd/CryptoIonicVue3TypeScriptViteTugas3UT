@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Crypto Tracker Mobile - Preview Tugas 3 STSI4303 UT</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #e5e9f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 10px;
+    }
+
+    /* MOCKUP SMARTPHONE SESUAI TUGAS_03.PDF */
+    .phone-wrapper {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border: 10px solid #2b394a;
+      border-radius: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 840px;
+    }
+
+    /* Notch & Speaker Bar */
+    .phone-top-bar {
+      height: 28px;
+      background-color: #2b394a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .speaker-notch {
+      width: 60px;
+      height: 4px;
+      background-color: #1a222d;
+      border-radius: 4px;
+    }
+
+    /* Header Navigasi */
+    .app-header {
+      background: #1e88e5;
+      color: #ffffff;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .app-header h1 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    /* Tombol Refresh Sesuai Mockup Soal */
+    .btn-refresh {
+      background-color: #0d6efd;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-refresh:hover {
+      background-color: #0b5ed7;
+    }
+
+    .btn-refresh:active {
+      transform: scale(0.96);
+    }
+
+    .rotating {
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Search Toolbar (Nilai Tambah / Kreativitas) */
+    .search-box {
+      background: #1e88e5;
+      padding: 0 16px 12px 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 13px;
+      outline: none;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Konten Scrollable */
+    .app-content {
+      flex: 1;
+      overflow-y: auto;
+      background-color: #f4f6f8;
+      padding: 14px;
+    }
+
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #6c757d;
+      margin-bottom: 12px;
+    }
+
+    .badge-count {
+      background: #e3f2fd;
+      color: #0d47a1;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    /* KARTU CRYPTOCURRENCY SESUAI PERSIS DENGAN SOAL TUGAS 3 */
+    .crypto-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .crypto-card {
+      display: flex;
+      align-items: center;
+      background-color: #fef9e7; /* Warna Krem Lembut / Golden Cream Sesuai Gambar */
+      border: 1px solid #ebdcb2;
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: transform 0.15s ease;
+    }
+
+    .crypto-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Kolom 1 (Kiri): Rank */
+    .col-rank {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 48px;
+    }
+
+    .lbl-small {
+      font-size: 11px;
+      font-weight: 500;
+      color: #6c757d;
+      margin-bottom: 2px;
+    }
+
+    .val-rank {
+      font-size: 20px;
+      font-weight: 800;
+      color: #212529;
+      line-height: 1.1;
+    }
+
+    /* Kolom 2 (Tengah): Name & Symbol */
+    .col-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 0 12px;
+      overflow: hidden;
+    }
+
+    .val-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #495057;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .val-symbol {
+      font-size: 19px;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1.1;
+    }
+
+    /* Kolom 3 (Kanan): USD Price */
+    .col-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      min-width: 105px;
+    }
+
+    .val-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+
+    .badge-pct {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+
+    .up {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .down {
+      background-color: #f8d7da;
+      color: #842029;
+    }
+
+    .loading-box, .error-box, .empty-box {
+      text-align: center;
+      padding: 40px 16px;
+      color: #6c757d;
+      font-size: 13px;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px dashed #ced4da;
+    }
+
+    /* Phone Home Indicator */
+    .phone-bottom-bar {
+      height: 24px;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid #f1f3f5;
+    }
+
+    .home-indicator {
+      width: 120px;
+      height: 4px;
+      background-color: #adb5bd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-wrapper">
+    <div class="phone-top-bar">
+      <div class="speaker-notch"></div>
+    </div>
+
+    <!-- Header Aplikasi -->
+    <header class="app-header">
+      <h1>Crypto Tracker UT</h1>
+      <button id="refreshBtn" class="btn-refresh" onclick="muatData()">
+        <span id="refreshIcon">↻</span> Refresh
+      </button>
+    </header>
+
+    <!-- Search Toolbar -->
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Cari nama atau simbol (cth: BTC)..."
+        oninput="saringData()"
+      />
+    </div>
+
+    <!-- Konten Utama -->
+    <main class="app-content">
+      <div class="meta-bar">
+        <span id="countBadge" class="badge-count">Memuat...</span>
+        <span id="timeLabel"></span>
+      </div>
+
+      <div id="cryptoList" class="crypto-list">
+        <!-- Kartu di-render melalui JavaScript -->
+      </div>
+    </main>
+
+    <div class="phone-bottom-bar">
+      <div class="home-indicator"></div>
+    </div>
+  </div>
+
+  <script>
+    // Data Cadangan Sesuai Persis Tangkapan Layar Soal Tugas 3
+    const FALLBACK_DATA = [
+      { rank: 1, name: "Bitcoin", symbol: "BTC", price_usd: "27604.54", percent_change_24h: "1.45" },
+      { rank: 2, name: "Ethereum", symbol: "ETH", price_usd: "1720.54", percent_change_24h: "-0.82" },
+      { rank: 3, name: "Tether", symbol: "USDT", price_usd: "1.00", percent_change_24h: "0.01" },
+      { rank: 4, name: "Binance Coin", symbol: "BNB", price_usd: "255.15", percent_change_24h: "2.10" },
+      { rank: 5, name: "USD Coin", symbol: "USDC", price_usd: "0.999867", percent_change_24h: "-0.02" },
+      { rank: 6, name: "XRP", symbol: "XRP", price_usd: "0.533625", percent_change_24h: "3.75" },
+      { rank: 7, name: "Staked Ether", symbol: "STEHT", price_usd: "1717.92", percent_change_24h: "-0.65" },
+      { rank: 8, name: "Dogecoin", symbol: "DOGE", price_usd: "0.158420", percent_change_24h: "5.12" },
+      { rank: 9, name: "Cardano", symbol: "ADA", price_usd: "0.485120", percent_change_24h: "-1.15" },
+      { rank: 10, name: "Solana", symbol: "SOL", price_usd: "142.68", percent_change_24h: "4.30" }
+    ];
+
+    let semuaKoin = [];
+
+    function formatHarga(val) {
+      const num = parseFloat(val);
+      if (isNaN(num)) return "0.00";
+      if (num >= 1) {
+        return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      return num.toString();
+    }
+
+    function renderList(list) {
+      const container = document.getElementById("cryptoList");
+      document.getElementById("countBadge").textContent = `Menampilkan: ${list.length} Koin`;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-box">
+            <p>Tidak ada cryptocurrency yang cocok.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = "";
+      list.forEach(koin => {
+        const pct = parseFloat(koin.percent_change_24h || 0);
+        const isUp = pct >= 0;
+        const pctClass = isUp ? "up" : "down";
+        const sign = isUp ? "+" : "";
+
+        html += `
+          <div class="crypto-card">
+            <!-- 1. Kolom Kiri: Rank -->
+            <div class="col-rank">
+              <span class="lbl-small">Rank</span>
+              <span class="val-rank">${koin.rank}</span>
+            </div>
+
+            <!-- 2. Kolom Tengah: Name & Symbol -->
+            <div class="col-info">
+              <span class="val-name">${koin.name}</span>
+              <span class="val-symbol">${koin.symbol}</span>
+            </div>
+
+            <!-- 3. Kolom Kanan: Label USD & Price -->
+            <div class="col-price">
+              <span class="lbl-small">USD</span>
+              <span class="val-price">${formatHarga(koin.price_usd)}</span>
+              <span class="badge-pct ${pctClass}">${sign}${koin.percent_change_24h || "0.00"}%</span>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    async function muatData() {
+      const icon = document.getElementById("refreshIcon");
+      icon.classList.add("rotating");
+      document.getElementById("cryptoList").innerHTML = `
+        <div class="loading-box">
+          <p>Sedang mengambil data dari API Coinlore...</p>
+        </div>
+      `;
+
+      try {
+        const res = await fetch("https://api.coinlore.net/api/tickers/?start=0&limit=100");
+        const json = await res.json();
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          semuaKoin = json.data;
+        } else {
+          semuaKoin = FALLBACK_DATA;
+        }
+      } catch (err) {
+        console.warn("Koneksi API gagal, menggunakan data lokal:", err);
+        semuaKoin = FALLBACK_DATA;
+      } finally {
+        icon.classList.remove("rotating");
+        const now = new Date();
+        document.getElementById("timeLabel").textContent = `Update: ${now.toLocaleTimeString("id-ID")} WIB`;
+        saringData();
+      }
+    }
+
+    function saringData() {
+      const q = document.getElementById("searchInput").value.toLowerCase().trim();
+      if (!q) {
+        renderList(semuaKoin);
+        return;
+      }
+      const filtered = semuaKoin.filter(c =>
+        c.name.toLowerCase().includes(q) || c.symbol.toLowerCase().includes(q)
+      );
+      renderList(filtered);
+    }
+
+    // Inisialisasi saat pertama kali dibuka
+    window.addEventListener("DOMContentLoaded", muatData);
+  </script>
+</body>
+</html>

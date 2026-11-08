@@ -1,0 +1,39 @@
+{
+  "name": "crypto-ionic-vue3-typescript-vite-tugas3-ut",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Aplikasi Mobile Pelacak Harga Cryptocurrency Dunia Menggunakan Ionic Framework, Vue 3 Composition API, TypeScript, dan Vite - Tugas 3 Praktikum MSIM4401 / STSI4303 Universitas Terbuka",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ionic/vue": "^7.6.0",
+    "@ionic/vue-router": "^7.6.0",
+    "axios": "^1.6.8",
+    "ionicons": "^7.2.2",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.4.3",
+    "vite": "^5.1.6",
+    "vue-tsc": "^2.0.7"
+  },
+  "keywords": [
+    "ionic",
+    "vue3",
+    "typescript",
+    "vite",
+    "coinlore-api",
+    "cryptocurrency",
+    "universitas-terbuka",
+    "stsi4303",
+    "msim4401"
+  ],
+  "author": "Mahasiswa UT - STSI4303",
+  "license": "MIT"
+}
