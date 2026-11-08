@@ -6,8 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:android": "npx cap run android",
+    "cap:open": "npx cap open android",
+    "apk:build": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug"
   },
   "dependencies": {
     "@ionic/vue": "^7.6.0",
@@ -15,13 +19,17 @@
     "axios": "^1.6.8",
     "ionicons": "^7.2.2",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/ios": "^6.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.4.3",
     "vite": "^5.1.6",
-    "vue-tsc": "^2.0.7"
+    "vue-tsc": "^2.0.7",
+    "@capacitor/cli": "^6.0.0"
   },
   "keywords": [
     "ionic",
